@@ -9,143 +9,91 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <!-- Navigation -->
-        <nav class="navbar">
-            <div class="nav-content">
-                <h1 class="logo">🔍 HotpotQA 分析平台</h1>
-                <ul class="nav-menu">
-                    <li><a href="#dashboard" class="nav-link active" data-section="dashboard">仪表板</a></li>
-                    <li><a href="#search" class="nav-link" data-section="search">查询检索</a></li>
-                    <li><a href="#visualization" class="nav-link" data-section="visualization">数据可视化</a></li>
-                    <li><a href="#clustering" class="nav-link" data-section="clustering">聚类分析</a></li>
-                    <li><a href="#reasoning" class="nav-link" data-section="reasoning">推理链</a></li>
-                </ul>
+    <nav class="navbar">
+        <div class="nav-content">
+            <h1 class="logo">🔍 HotpotQA 分析平台</h1>
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link active" data-section="dashboard">仪表板</a></li>
+                <li><a href="#" class="nav-link" data-section="search">查询检索</a></li>
+                <li><a href="#" class="nav-link" data-section="visualization">数据可视化</a></li>
+                <li><a href="#" class="nav-link" data-section="clustering">聚类分析</a></li>
+                <li><a href="#" class="nav-link" data-section="reasoning">推理链</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <section id="dashboard" class="section active">
+            <h2>📊 数据概览</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3 id="totalQuestions">-</h3>
+                    <p>总问题数</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="avgHops">-</h3>
+                    <p>平均推理跳数</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="typeBridge">-</h3>
+                    <p>Bridge 类型</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="typeComparison">-</h3>
+                    <p>Comparison 类型</p>
+                </div>
             </div>
-        </nav>
+            <div class="chart-container">
+                <h3>问题类型分布</h3>
+                <svg id="typeChart" width="100%" height="300"></svg>
+            </div>
+        </section>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Dashboard Section -->
-            <section id="dashboard" class="section active">
-                <h2>数据概览</h2>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <h3 id="totalQuestions">-</h3>
-                        <p>总问题数</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3 id="avgHops">-</h3>
-                        <p>平均推理跳数</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3 id="typeBridge">-</h3>
-                        <p>Bridge 类型</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3 id="typeComparison">-</h3>
-                        <p>Comparison 类型</p>
-                    </div>
-                </div>
-
-                <div class="chart-container">
-                    <h3>问题类型分布</h3>
-                    <svg id="typeChart" width="100%" height="300"></svg>
-                </div>
-
-                <div class="chart-container">
-                    <h3>难度等级分布</h3>
-                    <svg id="levelChart" width="100%" height="300"></svg>
-                </div>
-            </section>
-
-            <!-- Search Section -->
-            <section id="search" class="section">
-                <h2>查询检索</h2>
-                <div class="search-panel">
-                    <div class="filter-group">
-                        <input type="text" id="searchQuery" placeholder="输入问题或答案..." class="input-field">
-                        <select id="typeFilter" class="select-field">
-                            <option value="">所有类型</option>
-                            <option value="bridge">Bridge</option>
-                            <option value="comparison">Comparison</option>
-                        </select>
-                        <select id="levelFilter" class="select-field">
-                            <option value="">所有难度</option>
-                            <option value="easy">Easy</option>
-                            <option value="medium">Medium</option>
-                            <option value="hard">Hard</option>
-                        </select>
-                        <button id="searchBtn" class="btn btn-primary">搜索</button>
-                        <button id="exportBtn" class="btn btn-secondary">导出结果</button>
-                    </div>
-                </div>
-
-                <div id="searchResults" class="results-container">
-                    <div id="loadingIndicator" class="loading" style="display: none;">
-                        <p>正在加载...</p>
-                    </div>
-                    <div id="resultsTable"></div>
-                    <div id="pagination" class="pagination"></div>
-                </div>
-            </section>
-
-            <!-- Visualization Section -->
-            <section id="visualization" class="section">
-                <h2>数据可视化</h2>
-                <div class="chart-container">
-                    <h3>答案长度分布</h3>
-                    <svg id="answerLengthChart" width="100%" height="400"></svg>
-                </div>
-
-                <div class="chart-container">
-                    <h3>支持事实数量分布</h3>
-                    <svg id="factsChart" width="100%" height="400"></svg>
-                </div>
-
-                <div class="chart-container">
-                    <h3>类型-难度热力图</h3>
-                    <svg id="heatmapChart" width="100%" height="400"></svg>
-                </div>
-            </section>
-
-            <!-- Clustering Section -->
-            <section id="clustering" class="section">
-                <h2>聚类分析</h2>
+        <section id="search" class="section">
+            <h2>🔎 查询检索</h2>
+            <div class="search-panel">
                 <div class="filter-group">
-                    <select id="clusterTypeFilter" class="select-field">
+                    <input type="text" id="searchQuery" placeholder="搜索问题或答案..." class="input-field">
+                    <select id="typeFilter" class="select-field">
                         <option value="">所有类型</option>
                         <option value="bridge">Bridge</option>
                         <option value="comparison">Comparison</option>
                     </select>
-                    <button id="clusterBtn" class="btn btn-primary">执行聚类</button>
+                    <button id="searchBtn" class="btn btn-primary">搜索</button>
                 </div>
-                <div id="clusterResults" class="cluster-container"></div>
-            </section>
-
-            <!-- Reasoning Chain Section -->
-            <section id="reasoning" class="section">
-                <h2>多跳推理链</h2>
-                <div class="reasoning-input">
-                    <input type="text" id="reasoningId" placeholder="输入问题 ID..." class="input-field">
-                    <button id="loadReasoningBtn" class="btn btn-primary">加载推理链</button>
-                </div>
-                <div id="reasoningResult" class="reasoning-container"></div>
-            </section>
-        </main>
-
-        <!-- Question Detail Modal -->
-        <div id="detailModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <div id="modalBody"></div>
             </div>
-        </div>
-    </div>
+            <div id="searchResults" class="results-container"></div>
+        </section>
 
-    <script src="js/main.js"></script>
-    <script src="js/search.js"></script>
-    <script src="js/visualization.js"></script>
-    <script src="js/clustering.js"></script>
+        <section id="visualization" class="section">
+            <h2>📈 可视化</h2>
+            <div class="chart-container">
+                <h3>答案长度分布</h3>
+                <svg id="answerChart" width="100%" height="300"></svg>
+            </div>
+            <div class="chart-container">
+                <h3>支持事实分布</h3>
+                <svg id="factsChart" width="100%" height="300"></svg>
+            </div>
+        </section>
+
+        <section id="clustering" class="section">
+            <h2>🎯 聚类分析</h2>
+            <button id="clusterBtn" class="btn btn-primary">执行聚类</button>
+            <div id="clusterResults" class="cluster-container"></div>
+        </section>
+
+        <section id="reasoning" class="section">
+            <h2>🔗 推理链</h2>
+            <div class="reasoning-input">
+                <input type="text" id="reasoningId" placeholder="输入问题 ID..." class="input-field">
+                <button id="loadReasoningBtn" class="btn btn-primary">加载</button>
+            </div>
+            <div id="reasoningResult" class="reasoning-container"></div>
+        </section>
+    </main>
+
+    <!-- 把 JS 放在 body 最后，保证 DOM 加载完再执行 -->
+    <script src="js/app.js"></script>
 </body>
 </html>
