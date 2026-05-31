@@ -1,5 +1,6 @@
 
-const API_URL = 'http://localhost:5000/api';
+
+const API_URL = 'http://192.168.199.157:5000/api';
 
 // 导航
 document.querySelectorAll('.nav-link').forEach(link => {
